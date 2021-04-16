@@ -1,0 +1,4 @@
+settings.py
+base.html
+# Project exclude paths
+/venv/

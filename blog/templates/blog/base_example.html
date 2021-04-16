@@ -1,0 +1,134 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>{% block title %}基本模板{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'blog/css/blog_nav.css' %}" rel="stylesheet">
+
+    {% block css %}
+    {% endblock %}
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+{#          <img src="#" />#}
+          <span class="navbar-text">我的博客</span></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="my-nav">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/blog/">博客</a></li>
+          <li><a href="#">关于我们</a></li>
+          <li><a href="#">联系我们</a></li>
+      </ul>
+      <form class="navbar-form navbar-left" action="{% url 'blog:blog_search' %}" method="get">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="keyword">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+          {% if request.session.login %}
+            <li>{{ request.session.screen_name }}<a href="/logout/?next={{ request.path }}">
+                <i class="glyphicon glyphicon-log-out"></i>登出</a></li>
+
+          {% else %}
+              <li>
+                  <a href="xxxxxxxxxxxxxxxxxxxxxxxxxxx/?next={{ request.path }}">
+                      <i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;登录</a></li>
+          {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+    {% block content %}
+    {% endblock %}
+
+
+
+
+    <div id="back-to-top">
+         <i class="glyphicon glyphicon-arrow-up"></span>
+         </i>
+    </div>
+
+
+<footer>
+        <div class="footer" role="navigation">
+            <div class="container">
+                <div class="navbar-text">
+                    <div class="container text-center">
+                    <ul class="footer-text">
+                        <li><a href="/index.html">主页</a></li>
+                                   <li><a href="#" target="_blank">联系我们</a></li>
+                                   <li><a href="#">关于我们</a></li>
+                                   <li><a href="#" target="_blank">友站链接</a></li>
+                                   <li><a href="/blog/" target="_blank">博客首页</a></li>
+    {#                               <li><a href="#">JupyterHub</a></li>#}
+    {#                               <li><a href="/widgets">Widgets</a></li>#}
+    {#                               <li><a href="https://blog.jupyter.org" target="_blank">Blog</a></li>#}
+                        <!--2021-04-011 15:44:54 +0000-->
+                    </ul>
+                    </div>
+                    <div class="container text-center">
+                    <p>Copyright © 2021 xyF的个人博客 –
+                    Last updated Sun, Apr 11, 2021</p>
+    {#                <p>The Jupyter Trademark is registered with the U.S. Patent &amp; Trademark Office.</p>#}
+                    </div>
+                </div>
+    {#            <div class="follow">#}
+    {#                <a href="https://github.com/jupyter" class="button github-button" aria-label="Follow @jupyter on GitHub"><svg version="1.1" width="14" height="14" viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg> <span>Follow @jupyter</span></a>#}
+    {#                <br><a href="https://twitter.com/ProjectJupyter" class="twitter-follow-button" data-show-count="false">Follow @ProjectJupyter</a>#}
+    {#            </div>#}
+            </div>
+        </div>
+</footer>
+
+{#  !-- jQuery (necessary for Bootstrap's JavaScript plugins) -->#}
+{#    <script src="{% static 'jquery-3.2.1.min.js' %}"></script>#}
+{#    <!-- Include all compiled plugins (below), or include individual files as needed -->#}
+{#    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>#}
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="{% static 'jquery-3.6.0.min.js'%}"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+      <script>
+        $("#back-to-top").click(function () {
+            window.scrollTo(0,0);
+        });
+    </script>
+
+{% block script %}
+{% endblock %}
+
+
+  </body>
+</html>
